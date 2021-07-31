@@ -1,0 +1,27 @@
+{% extends 'app/index-home.html' %} {% block main-content %}
+
+<div class="col-sm-8 m-5">
+<a class="text-uppercase text-white  btn-main" href="{% url 'signup' %}">SignUp</a>
+  <h3 class="text-dark my-5">Login</h3>
+
+  <form action="" method="POST" novalidate>
+    {% csrf_token %}
+    {% for fm in form %}
+    
+        <div class="form-group">
+            {{fm.label_tag}} {{fm}}
+            <small class="text-warning"> {{fm.errors|striptags}}</small>
+        </div>
+    {% endfor %}
+    <input type="submit" class="btn btn-main" id= value="Login" />
+
+    {% if form.non_field_errors %} 
+        {% for error in form.non_field_errors %}
+            <p class="alert alert-danger my-3">
+            {{error}}</p>
+        {% endfor %}
+    {% endif %}
+  </form>
+</div>
+
+{% endblock main-content %}

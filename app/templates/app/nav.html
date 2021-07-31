@@ -1,0 +1,83 @@
+{% load static %}
+
+<!--
+  Start Preloader
+  ==================================== -->
+  <div id="preloader">
+    <div class='preloader'>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div> 
+  <!--
+  End Preloader -->
+
+  
+<!--
+Fixed Navigation
+==================================== -->
+<header class="navigation fixed-top">
+  <div class="container">
+    <!-- main nav -->
+    <nav class="navbar navbar-expand-lg navbar-light">
+      <!-- logo -->
+      {% if request.user.is_authenticated %}
+     {% for logo in logo %}
+      <a class="navbar-brand logo" href="/">
+        <img class=" {% if forloop.counter0 == 0 %}logo-default{% endif %} " src="{{logo.logo.url}}" alt="logo"/>
+      </a>
+    {% endfor %}
+      <!-- /logo -->
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation"
+        aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+{% endif %}
+      <div class="collapse navbar-collapse" id="navigation">
+        <ul class="navbar-nav ml-auto text-center">
+        {% if request.user.is_authenticated %}
+          {% for items in item %}
+            <li class="nav-item ">
+            <a class="nav-link" href="{{items.url_field}}">{{items.title}}</a>
+          </li>
+          
+          {% endfor %}
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+             Pages
+             
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            {% for subitem in sub_item %}
+              <a class="dropdown-item" href="{{subitem.url_field}}">{{subitem.title}}</a>
+              {% endfor %}
+          </li>
+          
+          <li class="nav-item ">
+            <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+          </li>
+          {% else %}
+          <li class="nav-item ">
+            <a class="nav-link" href="{% url 'signup' %}">SignUp</a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" href="{% url 'login' %}">Login</a>
+          </li>
+           {% endif %}
+          
+         
+          
+        </ul>
+      </div>
+    </nav>
+    <!-- /main nav -->
+  </div>
+</header>
+<!--
+End Fixed Navigation
+==================================== -->
